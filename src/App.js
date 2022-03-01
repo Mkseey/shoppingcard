@@ -12,6 +12,14 @@ const style = {
     width: "max-content",
     minWidth: "150px",
   },
+  tableCel:{
+    backgroundColor:"blue",
+    border: "1px solid gray",
+    margin: 0,
+    padding: "5px 10px",
+    width: "max-content",
+    minWidth: "150px",
+  },
   form: {
     container: {
       padding: "20px",
@@ -83,6 +91,7 @@ function ShoppingCardList(props) {
 function ProductTable(props) {
   const sortedProducts = props.products.sort((a, b) => a.productName.localeCompare(b.productPrice));
   //console.log("sortedContacts", sortedContacts)
+ 
   
 
   const display =
@@ -105,17 +114,16 @@ function ProductTable(props) {
         <td colSpan={3}>&nbsp;</td>
       </tr>
     );
-    
-
+  
   return (
     <table style={style.table} className="productTable">
       <thead>
         <tr>
-          <th style={style.tableCell}>Product</th>
-          <th style={style.tableCell}>Price</th>
-          <th style={style.tableCell}>Quantity</th>
-          <th style={style.tableCell}>Total</th>
-          <th style={style.tableCell}>Action</th>
+          <th style={style.tableCel}>Product</th>
+          <th style={style.tableCel}>Price</th>
+          <th style={style.tableCel}>Quantity</th>
+          <th style={style.tableCel}>Total</th>
+          <th style={style.tableCel}>Action</th>
         </tr>
       </thead>
       <tbody>{display}</tbody>
@@ -134,7 +142,7 @@ function App() {
   };
 
   const deleteItem = (props) => {
-    console.log("props.is", props)
+    console.log("delete props.is", props)
     //  setProducts((preValue) => {
     //     return preValue.filter((val, index) => {
     //       return id !== index;
@@ -145,7 +153,7 @@ function App() {
 
   return (
     <section>
-      <ShoppingCardList addProduct={addproduct} />
+      <ShoppingCardList addProduct={addproduct}/>
       <ProductTable products={products} deleteItem={deleteItem} />
     </section>
   );
