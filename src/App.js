@@ -43,6 +43,7 @@ const style = {
 };
 
 function ShoppingCardList(props) {
+
   const initDetails = {
     id: null,
     productName: "",
@@ -67,7 +68,7 @@ function ShoppingCardList(props) {
     props.addProduct(userState);
     setUserState(initDetails);
   };
-
+  console.log("you are in the 2nd shopping card component")
   return (
     <form onSubmit={handleSubmit} style={style.form.container}>
       <label>Product name:</label>
@@ -92,29 +93,32 @@ function ProductTable(props) {
   const sortedProducts = props.products.sort((a, b) => a.productName.localeCompare(b.productPrice));
   //console.log("sortedContacts", sortedContacts)
  
-  
+  console.log("you are in the  3nd Product Table component")
 
   const display =
   sortedProducts.length > 0 ? (
+    
     sortedProducts.map((productinf, index) => (
+      
         <tr key={index}>
           <td style={style.tableCell}>{productinf.productName}</td>
           <td style={style.tableCell}>{productinf.productPrice}</td>
           <td style={style.tableCell}>{productinf.productQuantity}</td>
           <td style={style.tableCell}>{productinf.productPrice * productinf.productQuantity}</td>
           <td style={style.tableCell}>
-            <button onClick={props.deleteItem()} >
+            <button onClick={props.deleteItem(productinf.id)} >
               Delete
             </button>
           </td>
         </tr>
       ))
-    ) : (
+     
+      ) : (
       <tr>
         <td colSpan={3}>&nbsp;</td>
       </tr>
     );
-  
+
   return (
     <table style={style.table} className="productTable">
       <thead>
@@ -134,11 +138,13 @@ function ProductTable(props) {
 function App() {
 
   const [products, setProducts] = useState([]);
+  const [loading, setLoading]=useState(false);
 
   const addproduct = (product) => {
     product.id = products.length + 1;
     console.log("users.length", products.length);
     setProducts([...products, product]);
+    {setLoading(true)}
   };
 
   const deleteItem = (props) => {
@@ -150,14 +156,19 @@ function App() {
     //   });
   }
 
-
+  console.log("you are in the  1st app component")
+ 
   return (
     <section>
       <ShoppingCardList addProduct={addproduct}/>
-      <ProductTable products={products} deleteItem={deleteItem} />
+      {!loading && <h1>Please add the record to the list</h1>}
+      {loading &&
+      <ProductTable 
+      products={products} 
+      deleteItem={deleteItem} 
+      />}
     </section>
   );
 }
-
 
 export default App;
